@@ -12,10 +12,32 @@ import javax.persistence.Id;
 
 @Entity
 public class Flight implements Serializable {
- 
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @Column(name="flightNumber")
-    private String flightNumber;
+	@Column(name = "flightNumber")
+	private String flightNumber;
+
+	public Flight() {
+		super();
+	}
+
+	public Flight(String flightNumber) {
+		super();
+		this.flightNumber = flightNumber;
+	}
+
+	public String getFlightNumber() {
+		return flightNumber;
+	}
+
+	public void setFlightNumber(String flightNumber) {
+		this.flightNumber = flightNumber;
+	}
+
+	@Override
+	public String toString() {
+		return "Flight [flightNumber=" + flightNumber + "]";
+	}
 }

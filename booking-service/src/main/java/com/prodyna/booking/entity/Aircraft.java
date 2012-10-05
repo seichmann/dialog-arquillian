@@ -11,6 +11,15 @@ public class Aircraft implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	public Aircraft() {
+		super();
+	}
+
+	public Aircraft(String registration) {
+		super();
+		this.registration = registration;
+	}
+
 	@Id
 	@NotNull
 	private String registration;

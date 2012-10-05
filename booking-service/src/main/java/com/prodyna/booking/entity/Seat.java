@@ -27,6 +27,16 @@ public class Seat implements Serializable {
 	@Column(name="name",nullable=false)
 	private String name;
 
+	public Seat() {
+		super();
+	}
+
+	public Seat(Aircraft aircraft, String name) {
+		super();
+		this.aircraft = aircraft;
+		this.name = name;
+	}
+
 	public Aircraft getAircraft() {
 		return aircraft;
 	}

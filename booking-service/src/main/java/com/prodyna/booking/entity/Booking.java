@@ -18,6 +18,18 @@ public class Booking implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	public Booking() {
+		super();
+	}
+
+	public Booking(String ticket, Flight flight, Seat seat, String pax) {
+		super();
+		this.ticket = ticket;
+		this.flight = flight;
+		this.seat = seat;
+		this.pax = pax;
+	}
+
 	@Id
 	@NotNull
 	@Column(name="ticket")
