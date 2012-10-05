@@ -15,6 +15,7 @@
 				<version>2.6</version>
 				<configuration>
 					<finalName>${project.artifactId}</finalName>
+					<includeLibInApplicationXml>true</includeLibInApplicationXml>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -25,6 +26,12 @@
 			<artifactId>booking-service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>com.prodyna.booking</groupId>
+			<artifactId>booking-web</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>war</type>
 		</dependency>
 	</dependencies>
 </project>
