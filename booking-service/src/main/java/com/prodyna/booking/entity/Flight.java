@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Flight implements Serializable {
@@ -18,14 +19,26 @@ public class Flight implements Serializable {
 	@Id
 	@Column(name = "flightNumber")
 	private String flightNumber;
+	
+	@ManyToOne
+	private Aircraft aircraft;
 
 	public Flight() {
 		super();
 	}
 
-	public Flight(String flightNumber) {
+	public Flight(Aircraft aircraft, String flightNumber) {
 		super();
+		this.aircraft = aircraft;
 		this.flightNumber = flightNumber;
+	}
+
+	public Aircraft getAircraft() {
+		return aircraft;
+	}
+
+	public void setAircraft(Aircraft aircraft) {
+		this.aircraft = aircraft;
 	}
 
 	public String getFlightNumber() {
@@ -38,6 +51,7 @@ public class Flight implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Flight [flightNumber=" + flightNumber + "]";
+		return "Flight [flightNumber=" + flightNumber + ", aircraft="
+				+ aircraft + "]";
 	}
 }
