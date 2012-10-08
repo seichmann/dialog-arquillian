@@ -22,7 +22,7 @@ public class SeatServiceBean implements SeatService {
 	@Override
 	public void create(String aid, String sid) {
 		Aircraft a = em.find(Aircraft.class, aid);
-		Seat s = new Seat(a, aid);
+		Seat s = new Seat(a, sid);
 		em.persist(s);
 	}
 

@@ -6,4 +6,6 @@ public interface BookingService {
     String book( String fid, String sid, String pax );
     void cancel( String tid );
     List<String> list();
+	String flightNumber(String tid);
+	String aircraft(String tid);
 }

@@ -6,7 +6,10 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.slf4j.Logger;
+
 import com.prodyna.booking.BookingService;
+import com.prodyna.booking.entity.Aircraft;
 import com.prodyna.booking.entity.Booking;
 import com.prodyna.booking.entity.Flight;
 import com.prodyna.booking.entity.Seat;
@@ -17,29 +20,55 @@ import com.prodyna.booking.ticket.IDGenerator;
 @Monitored
 public class BookingServiceBean implements BookingService {
 
-	@Inject private EntityManager em;
-	
-	@Inject IDGenerator ig;
-	
-    @Override
-    public String book(String fid, String sid, String pax) {
-    	Flight f = em.find( Flight.class,  fid );
-    	Seat s = em.find( Seat.class, sid );
-    	Booking b = new Booking( f, s, pax );
-    	String id = ig.generate( b );
-    	b.setTicket( id );
-    	em.persist( b );
-    	return id;
-    }
+	@Inject
+	private Logger log;
 
-    @Override
-    public void cancel(String tid) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+	@Inject
+	private EntityManager em;
 
-    @Override
-    public List<String> list() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+	@Inject
+	IDGenerator ig;
+
+	@Override
+	public String book(String fid, String sid, String pax) {
+		Flight f = em.find(Flight.class, fid);
+		log.info(f.toString());
+		Aircraft a = f.getAircraft();
+		log.info(a.toString());
+		Seat s = em
+				.createQuery(
+						"select s from Seat s where s.aircraft = :a and s.name = :sid",
+						Seat.class).setParameter("a", a)
+				.setParameter("sid", sid).getSingleResult();
+		Booking b = new Booking(f, s, pax);
+		String id = ig.generate(b);
+		b.setTicket(id);
+		em.persist(b);
+		return id;
+	}
+
+	@Override
+	public void cancel(String tid) {
+		Booking b = em.find(Booking.class, tid);
+		em.remove(b);
+	}
+
+	@Override
+	public String flightNumber(String tid) {
+		Booking b = em.find(Booking.class, tid);
+		return b.getFlight().getFlightNumber();
+	}
+
+	@Override
+	public String aircraft(String tid) {
+		Booking b = em.find(Booking.class, tid);
+		return b.getFlight().getAircraft().getRegistration();
+	}
+
+	@Override
+	public List<String> list() {
+		return em.createQuery("select b.id from Booking b", String.class)
+				.getResultList();
+	}
 
 }
