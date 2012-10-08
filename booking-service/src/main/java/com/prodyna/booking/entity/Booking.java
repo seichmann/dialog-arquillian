@@ -22,6 +22,13 @@ public class Booking implements Serializable {
 		super();
 	}
 
+	public Booking( Flight flight, Seat seat, String pax) {
+		super();
+		this.flight = flight;
+		this.seat = seat;
+		this.pax = pax;
+	}
+
 	public Booking(String ticket, Flight flight, Seat seat, String pax) {
 		super();
 		this.ticket = ticket;
@@ -43,7 +50,7 @@ public class Booking implements Serializable {
 	@JoinColumn(name = "seat")
 	private Seat seat;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String pax;
 
 	public Flight getFlight() {

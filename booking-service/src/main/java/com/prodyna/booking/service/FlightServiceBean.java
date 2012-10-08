@@ -33,7 +33,7 @@ public class FlightServiceBean implements FlightService {
 
 	@Override
 	public List<String> list() {
-		return em.createQuery("select f.name from Flight f", String.class)
+		return em.createQuery("select f.flightNumber from Flight f", String.class)
 				.getResultList();
 	}
 

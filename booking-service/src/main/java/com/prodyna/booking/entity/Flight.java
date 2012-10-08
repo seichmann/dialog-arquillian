@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -21,6 +22,7 @@ public class Flight implements Serializable {
 	private String flightNumber;
 	
 	@ManyToOne
+	@JoinColumn(nullable=false)
 	private Aircraft aircraft;
 
 	public Flight() {

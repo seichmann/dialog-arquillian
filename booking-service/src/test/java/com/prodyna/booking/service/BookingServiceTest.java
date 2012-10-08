@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.prodyna.booking.AircraftService;
+import com.prodyna.booking.BookingService;
 import com.prodyna.booking.FlightService;
 import com.prodyna.booking.SeatService;
 
@@ -32,6 +33,9 @@ public class BookingServiceTest {
 	@Inject
 	private FlightService fs;
 
+	@Inject
+	private	BookingService bs;
+	
 	@Deployment
 	public static Archive<?> createDeployment() {
 		JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "aircraft.jar");
@@ -42,6 +46,7 @@ public class BookingServiceTest {
 		jar.addPackages( true, "com.prodyna.booking.monitoring");
 		jar.addPackages( true, "com.prodyna.booking.service");
 		jar.addPackages( true, "com.prodyna.booking.producer");
+		jar.addPackages( true, "com.prodyna.booking.ticket");
 		return jar;
 	}
 
@@ -67,6 +72,28 @@ public class BookingServiceTest {
 		ss.create("D-AIRX",  "1A");
 		ss.create("D-AIRX",  "1B");
 		assertEquals(2, ss.list("D-AIRX").size() );
+	}
+	
+	@Test
+	@InSequence(3)
+	public void createFlight() {
+		fs.create("D-ABVX", "LH400/08OCT12");
+		fs.create("D-ABVX", "LH400/09OCT12");
+		fs.create("D-AIRX", "LH001/08OCT12");
+		fs.create("D-AIRX", "LH001/09OCT12");
+		assertEquals(4, fs.list().size() );
+	}
+
+	@Test
+	@InSequence(4)
+	public void bookMarkus() {
+		bs.book("LH400/08OCT12", "1A", "Markus Konrad");
+	}
+
+	@Test
+	@InSequence(5)
+	public void bookDarko() {
+		bs.book("LH001/09OCT12", "1B", "Darko Krizic");
 	}
 
 }
