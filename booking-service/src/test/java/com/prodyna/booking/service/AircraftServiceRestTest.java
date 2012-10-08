@@ -28,7 +28,7 @@ public class AircraftServiceRestTest {
 		final WebArchive archive = ShrinkWrap.create(WebArchive.class, "booking.war");
 		archive.addPackages(true, "com.prodyna.booking");
 		archive.addAsWebInfResource("META-INF/beans.xml", "beans.xml");
-//		archive.addAsWebInfResource(EmptyAsset.INSTANCE., "web.xml");
+		archive.addAsWebInfResource("web.xml");
 		archive.addAsWebInfResource("META-INF/persistence.xml", "classes/META-INF/persistence.xml");
 		
 		System.out.println(archive.toString(true));
@@ -38,8 +38,8 @@ public class AircraftServiceRestTest {
 
 	@Before
 	public void before() {
-		as = ProxyFactory.create(AircraftService.class, "http://localhost:8080/booking/");
-		ss = ProxyFactory.create(SeatService.class, "http://localhost:8080/booking/");
+		as = ProxyFactory.create(AircraftService.class, "http://localhost:8080/booking/rest");
+		ss = ProxyFactory.create(SeatService.class, "http://localhost:8080/booking/rest");
 	}
 	
 	@Test
