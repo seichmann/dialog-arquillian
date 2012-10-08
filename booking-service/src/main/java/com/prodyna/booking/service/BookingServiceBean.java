@@ -3,6 +3,7 @@ package com.prodyna.booking.service;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
@@ -29,6 +30,8 @@ public class BookingServiceBean implements BookingService {
 	@Inject
 	IDGenerator ig;
 
+	@Inject Event<Booking> be;
+	
 	@Override
 	public String book(String fid, String sid, String pax) {
 		Flight f = em.find(Flight.class, fid);
@@ -44,6 +47,7 @@ public class BookingServiceBean implements BookingService {
 		String id = ig.generate(b);
 		b.setTicket(id);
 		em.persist(b);
+		be.fire( b );
 		return id;
 	}
 

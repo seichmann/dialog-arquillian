@@ -23,7 +23,6 @@ import com.prodyna.booking.SeatService;
 public class BookingServiceTest {
 
 	private static final String DAIRX = "D-AIRX";
-
 	private static final String DABVX = "D-ABVX";
 
 	@Inject
