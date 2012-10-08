@@ -10,8 +10,10 @@ import javax.persistence.TypedQuery;
 import com.prodyna.booking.SeatService;
 import com.prodyna.booking.entity.Aircraft;
 import com.prodyna.booking.entity.Seat;
+import com.prodyna.booking.monitoring.Monitored;
 
 @Stateless
+@Monitored
 public class SeatServiceBean implements SeatService {
 
 	@Inject
@@ -28,7 +30,7 @@ public class SeatServiceBean implements SeatService {
 	public void delete(String aid, String sid) {
 		TypedQuery<Seat> q = em
 				.createQuery(
-						"from Seat s where s.aircraft.registration = :aid and s.name = :sid",
+						"select s from Seat s where s.aircraft.registration = :aid and s.name = :sid",
 						Seat.class);
 		q.setParameter("aid", aid);
 		q.setParameter("sid", sid);
@@ -40,7 +42,7 @@ public class SeatServiceBean implements SeatService {
 	public List<String> list(String aid) {
 		return em
 				.createQuery(
-						"select seat.name from Seat s where s.aircraft.registration = :aid",
+						"select s.name from Seat s where s.aircraft.registration = :aid",
 						String.class).setParameter("aid", aid).getResultList();
 	}
 

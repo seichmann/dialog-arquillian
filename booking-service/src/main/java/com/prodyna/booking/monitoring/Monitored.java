@@ -6,13 +6,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import javax.inject.Qualifier;
 import javax.interceptor.InterceptorBinding;
 
-@Qualifier
+@InterceptorBinding
 @Retention(RetentionPolicy.RUNTIME)
 @Target(TYPE)
-@InterceptorBinding
 public @interface Monitored {
 	// ok
 }

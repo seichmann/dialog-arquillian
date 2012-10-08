@@ -8,8 +8,10 @@ import javax.persistence.EntityManager;
 
 import com.prodyna.booking.AircraftService;
 import com.prodyna.booking.entity.Aircraft;
+import com.prodyna.booking.monitoring.Monitored;
 
 @Stateless
+@Monitored
 public class AircraftServiceBean implements AircraftService {
 
 	@Inject

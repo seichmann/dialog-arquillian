@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -41,10 +40,10 @@ public class Booking implements Serializable {
 	private Flight flight;
 
 	@ManyToOne(optional = false)
-	@JoinColumns({ @JoinColumn(name = "seat_aircraft"),
-			@JoinColumn(name = "seat_name") })
+	@JoinColumn(name = "seat")
 	private Seat seat;
 
+	@Column(nullable=false)
 	private String pax;
 
 	public Flight getFlight() {

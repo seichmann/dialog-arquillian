@@ -1,9 +1,12 @@
 package com.prodyna.booking.entity;
 
+import static javax.persistence.GenerationType.AUTO;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,20 +15,22 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(name = "seatPerFlight", columnNames = {
-		"aircraft", "name" }))
+//@Table(uniqueConstraints = @UniqueConstraint(name = "seatPerFlight", columnNames = {
+//		"aircraft", "name" }))
 public class Seat implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@ManyToOne(optional=false)
-	@JoinColumn(name="aircraft")
+	@GeneratedValue(strategy = AUTO)
+	public Long id;
+
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "aircraft")
 	private Aircraft aircraft;
 
-	@Id
 	@NotNull
-	@Column(name="name",nullable=false)
+	@Column(name = "name", nullable = false)
 	private String name;
 
 	public Seat() {

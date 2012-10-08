@@ -9,29 +9,32 @@ import javax.persistence.EntityManager;
 import com.prodyna.booking.FlightService;
 import com.prodyna.booking.entity.Aircraft;
 import com.prodyna.booking.entity.Flight;
+import com.prodyna.booking.monitoring.Monitored;
 
 @Stateless
+@Monitored
 public class FlightServiceBean implements FlightService {
 
 	@Inject
 	private EntityManager em;
-	
+
 	@Override
 	public void create(String aid, String fid) {
-		Aircraft a = em.find( Aircraft.class,  aid );
-		Flight f = new Flight( a, fid );
-		em.persist( f );
+		Aircraft a = em.find(Aircraft.class, aid);
+		Flight f = new Flight(a, fid);
+		em.persist(f);
 	}
 
 	@Override
 	public void delete(String fid) {
-		Flight f = em.find( Flight.class,  fid );
-		em.remove( f );
+		Flight f = em.find(Flight.class, fid);
+		em.remove(f);
 	}
 
 	@Override
 	public List<String> list() {
-		return em.createQuery("select f.name from Flight f", String.class ).getResultList();
+		return em.createQuery("select f.name from Flight f", String.class)
+				.getResultList();
 	}
 
 }
