@@ -6,5 +6,9 @@
 		<class>com.prodyna.booking.monitoring.MonitoringInterceptor</class>
 	</interceptors>
 
+	<decorators>
+		<class>com.prodyna.booking.event.BookingEventDecorator</class>
+	</decorators>
+
 </beans>
 
