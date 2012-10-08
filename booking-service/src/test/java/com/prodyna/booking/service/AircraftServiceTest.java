@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.prodyna.booking.AircraftService;
+import com.prodyna.booking.producer.EntityManagerProducer;
 
 @RunWith(Arquillian.class)
 public class AircraftServiceTest {
@@ -24,13 +25,16 @@ public class AircraftServiceTest {
 	public static Archive<?> createDeployment() {
 		JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "aircraft.jar");
 		jar.addAsResource("META-INF/beans.xml");
-		jar.addClass( AircraftService.class );
-		jar.addClass( AircraftServiceBean.class );
+		jar.addAsResource("META-INF/persistence.xml");
+		jar.addClass(AircraftService.class);
+		jar.addClass(AircraftServiceBean.class);
+		jar.addClass(EntityManagerProducer.class);
+		jar.addPackage("com.prodyna.booking.monitoring");
 		return jar;
 	}
 
 	@Test
 	public void createAndCount() {
-		assertNotNull( as );
+		assertNotNull(as);
 	}
 }

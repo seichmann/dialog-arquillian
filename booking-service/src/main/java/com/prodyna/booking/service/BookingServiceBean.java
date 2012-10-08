@@ -1,11 +1,14 @@
 package com.prodyna.booking.service;
 
 import com.prodyna.booking.*;
+import com.prodyna.booking.monitoring.Monitored;
+
 import java.util.List;
 
 import javax.ejb.Stateless;
 
 @Stateless
+@Monitored
 public class BookingServiceBean implements BookingService {
 
     @Override
