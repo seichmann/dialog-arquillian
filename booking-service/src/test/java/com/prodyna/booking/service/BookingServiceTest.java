@@ -18,6 +18,7 @@ import com.prodyna.booking.AircraftService;
 import com.prodyna.booking.BookingService;
 import com.prodyna.booking.FlightService;
 import com.prodyna.booking.SeatService;
+import com.prodyna.booking.event.BookingEventObserver;
 
 @RunWith(Arquillian.class)
 public class BookingServiceTest {
@@ -39,6 +40,9 @@ public class BookingServiceTest {
 
 	@Inject
 	private BookingService bs;
+	
+	@Inject
+	private	BookingEventObserver beo;
 
 	@Deployment
 	public static Archive<?> createDeployment() {
@@ -51,6 +55,7 @@ public class BookingServiceTest {
 		jar.addPackages(true, "com.prodyna.booking.service");
 		jar.addPackages(true, "com.prodyna.booking.producer");
 		jar.addPackages(true, "com.prodyna.booking.ticket");
+		jar.addPackages(true, "com.prodyna.booking.event");
 		return jar;
 	}
 
@@ -96,6 +101,7 @@ public class BookingServiceTest {
 		assertEquals(1, bs.list().size() );
 		assertEquals(DABVX, bs.aircraft( id ) );
 		assertEquals("LH400/08OCT12", bs.flightNumber( id) );
+		assertEquals(1, beo.getCount() );
 	}
 
 	@Test
@@ -106,6 +112,7 @@ public class BookingServiceTest {
 		assertEquals(2, bs.list().size() );
 		assertEquals(DAIRX, bs.aircraft( id ) );
 		assertEquals("LH001/09OCT12", bs.flightNumber( id) );
+		assertEquals(2, beo.getCount() );
 	}
 
 	@Test
@@ -114,6 +121,7 @@ public class BookingServiceTest {
 		String id = bs.list().get(0);
 		bs.cancel( id );
 		assertEquals(1, bs.list().size() );
+		assertEquals(2, beo.getCount() );
 	}
 
 }

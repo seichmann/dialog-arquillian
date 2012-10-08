@@ -34,8 +34,8 @@ public class BookingServiceBean implements BookingService {
 	
 	@Override
 	public String book(String fid, String sid, String pax) {
+		log.info("Booking " + pax + " to " + fid + " on seat " + sid );
 		Flight f = em.find(Flight.class, fid);
-		log.info(f.toString());
 		Aircraft a = f.getAircraft();
 		log.info(a.toString());
 		Seat s = em
