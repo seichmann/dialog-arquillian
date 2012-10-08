@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Local
+@Path("/seat")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface SeatService {
@@ -23,9 +24,9 @@ public interface SeatService {
 	
 	@DELETE
 	@Path("/aircraft/{aid}/seat/{sid}")
-    void delete( String aid, String sid );
+    void delete(@PathParam("aid") String aid, @PathParam("sid") String sid );
 	
 	@GET
-	@Path("/aircraft")
-    List<String> list( String aid );
+	@Path("/aircraft/{aid}")
+    List<String> list(@PathParam("aid") String aid );
 }

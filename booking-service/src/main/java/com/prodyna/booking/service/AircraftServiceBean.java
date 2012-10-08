@@ -31,7 +31,7 @@ public class AircraftServiceBean implements AircraftService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> list() {
-		return em.createQuery("from Aircraft a").getResultList();
+		return em.createQuery("select a.registration from Aircraft a").getResultList();
 	}
 
 }
