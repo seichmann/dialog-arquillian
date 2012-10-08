@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -32,15 +33,16 @@ public class Booking implements Serializable {
 
 	@Id
 	@NotNull
-	@Column(name="ticket")
+	@Column(name = "ticket")
 	private String ticket;
 
-	@ManyToOne(optional=false)
-	@JoinColumn(name="flight")
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "flight")
 	private Flight flight;
 
-	@ManyToOne(optional=false)
-	@JoinColumn(name="seat")
+	@ManyToOne(optional = false)
+	@JoinColumns({ @JoinColumn(name = "seat_aircraft"),
+			@JoinColumn(name = "seat_name") })
 	private Seat seat;
 
 	private String pax;

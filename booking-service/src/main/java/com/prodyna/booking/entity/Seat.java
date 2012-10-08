@@ -23,6 +23,7 @@ public class Seat implements Serializable {
 	@JoinColumn(name="aircraft")
 	private Aircraft aircraft;
 
+	@Id
 	@NotNull
 	@Column(name="name",nullable=false)
 	private String name;

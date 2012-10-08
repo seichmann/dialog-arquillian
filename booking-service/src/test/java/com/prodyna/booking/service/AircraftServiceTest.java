@@ -14,7 +14,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.prodyna.booking.AircraftService;
-import com.prodyna.booking.producer.EntityManagerProducer;
+import com.prodyna.booking.FlightService;
+import com.prodyna.booking.SeatService;
 
 @RunWith(Arquillian.class)
 public class AircraftServiceTest {
@@ -24,28 +25,44 @@ public class AircraftServiceTest {
 	
 	@Inject
 	private AircraftService as;
+	
+	@Inject
+	private SeatService ss;
+	
+	@Inject
+	private FlightService fs;
 
 	@Deployment
 	public static Archive<?> createDeployment() {
 		JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "aircraft.jar");
 		jar.addAsResource("META-INF/beans.xml");
 		jar.addAsResource("META-INF/persistence.xml");
-		jar.addClass(AircraftService.class);
-		jar.addClass(AircraftServiceBean.class);
-		jar.addClass(EntityManagerProducer.class);
-		jar.addClass(DatabaseCleaner.class);
-		jar.addPackage("com.prodyna.booking.monitoring");
-		jar.addPackage("com.prodyna.booking.entity");
+		jar.addPackages( true, "com.prodyna.booking");
 		return jar;
 	}
 
 	@Test
 	@InSequence(1)
-	public void createAndCount() {
+	public void createAircraft() {
 		dc.clean();
 		assertEquals(0,  as.list().size() );
 		as.create("D-ABVX");
 		as.create("D-AIRX");
 		assertEquals(2,  as.list().size() );
 	}
+	
+	@Test
+	@InSequence(2)
+	public void createSeats() {
+		ss.create("D-ABVX",  "1A");
+		ss.create("D-ABVX",  "1B");
+		ss.create("D-ABVX",  "2A");
+		ss.create("D-ABVX",  "2B");
+		assertEquals(4, ss.list("D-ABVX").size() );
+		
+		ss.create("D-AIRX",  "1A");
+		ss.create("D-AIRX",  "1B");
+		assertEquals(4, ss.list("D-AIRX").size() );
+	}
+
 }
