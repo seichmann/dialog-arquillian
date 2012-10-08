@@ -8,7 +8,8 @@ import org.jboss.arquillian.junit.InSequence;
 import org.jboss.resteasy.client.ProxyFactory;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,11 +25,15 @@ public class AircraftServiceRestTest {
 
 	@Deployment
 	public static Archive<?> createDeployment() {
-		JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "aircraft.jar");
-		jar.addAsResource("META-INF/beans.xml");
-		jar.addAsResource("META-INF/persistence.xml");
-		jar.addPackages( true, "com.prodyna.booking");
-		return jar;
+		final WebArchive archive = ShrinkWrap.create(WebArchive.class, "booking.war");
+		archive.addPackages(true, "com.prodyna.booking");
+		archive.addAsWebInfResource("META-INF/beans.xml", "beans.xml");
+//		archive.addAsWebInfResource(EmptyAsset.INSTANCE., "web.xml");
+		archive.addAsWebInfResource("META-INF/persistence.xml", "classes/META-INF/persistence.xml");
+		
+		System.out.println(archive.toString(true));
+		
+		return archive;
 	}
 
 	@Before
