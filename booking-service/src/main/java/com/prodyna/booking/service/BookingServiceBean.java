@@ -30,11 +30,9 @@ public class BookingServiceBean implements BookingService {
 	@Inject
 	IDGenerator ig;
 
-	@Inject Event<Booking> be;
-	
 	@Override
 	public String book(String fid, String sid, String pax) {
-		log.info("Booking " + pax + " to " + fid + " on seat " + sid );
+		log.info("Booking " + pax + " to " + fid + " on seat " + sid);
 		Flight f = em.find(Flight.class, fid);
 		Aircraft a = f.getAircraft();
 		log.info(a.toString());
@@ -47,7 +45,6 @@ public class BookingServiceBean implements BookingService {
 		String id = ig.generate(b);
 		b.setTicket(id);
 		em.persist(b);
-		be.fire( b );
 		return id;
 	}
 
