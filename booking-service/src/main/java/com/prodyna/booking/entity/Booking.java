@@ -35,11 +35,11 @@ public class Booking implements Serializable {
 	@Column(name="ticket")
 	private String ticket;
 
-	@ManyToOne(optional=false,targetEntity=Flight.class)
+	@ManyToOne(optional=false)
 	@JoinColumn(name="flight")
 	private Flight flight;
 
-	@ManyToOne(optional=false,targetEntity=Seat.class)
+	@ManyToOne(optional=false)
 	@JoinColumn(name="seat")
 	private Seat seat;
 

@@ -1,11 +1,12 @@
 package com.prodyna.booking.service;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -19,6 +20,9 @@ import com.prodyna.booking.producer.EntityManagerProducer;
 public class AircraftServiceTest {
 
 	@Inject
+	private	DatabaseCleaner dc;
+	
+	@Inject
 	private AircraftService as;
 
 	@Deployment
@@ -29,12 +33,19 @@ public class AircraftServiceTest {
 		jar.addClass(AircraftService.class);
 		jar.addClass(AircraftServiceBean.class);
 		jar.addClass(EntityManagerProducer.class);
+		jar.addClass(DatabaseCleaner.class);
 		jar.addPackage("com.prodyna.booking.monitoring");
+		jar.addPackage("com.prodyna.booking.entity");
 		return jar;
 	}
 
 	@Test
+	@InSequence(1)
 	public void createAndCount() {
-		assertNotNull(as);
+		dc.clean();
+		assertEquals(0,  as.list().size() );
+		as.create("D-ABVX");
+		as.create("D-AIRX");
+		assertEquals(2,  as.list().size() );
 	}
 }
