@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.prodyna.booking.AircraftService;
 
-@WebServlet(urlPatterns = "/*")
+@WebServlet(urlPatterns = "/aircraft")
 public class AircraftServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

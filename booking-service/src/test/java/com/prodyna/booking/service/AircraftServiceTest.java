@@ -9,6 +9,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +28,7 @@ public class AircraftServiceTest {
 	@Deployment
 	public static Archive<?> createDeployment() {
 		JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "aircraft.jar");
-		jar.addAsResource("META-INF/beans.xml");
+		jar.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 		jar.addAsResource("META-INF/persistence.xml");
 		jar.addClass(Aircraft.class);
 		jar.addClass(AircraftService.class);
