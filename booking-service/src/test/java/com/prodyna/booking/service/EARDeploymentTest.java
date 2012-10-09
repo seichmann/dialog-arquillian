@@ -32,11 +32,11 @@ public class EARDeploymentTest {
 	@Before
 	public void before() {
 		 // TODO @ArquillianResource
-		as = ProxyFactory.create(AircraftService.class, "http://localhost:8080/booking-web/rest");
+		as = ProxyFactory.create(AircraftService.class, "http://localhost:8080/booking-web/rest/");
 	}
 	
-	@Test
 	@RunAsClient
+	@Test
 	public void createAircraft() {
 		assertEquals(0, as.list().size());
 		as.create("D-EEFZ");

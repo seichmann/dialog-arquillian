@@ -25,7 +25,6 @@ public class AircraftServiceRestTest {
 		final WebArchive archive = ShrinkWrap.create(WebArchive.class, "aircraft.war");
 		archive.addPackages(true, "com.prodyna.booking");
 		archive.addAsWebInfResource("META-INF/beans.xml", "beans.xml");
-		archive.addAsWebInfResource("web.xml");
 		archive.addAsWebInfResource("META-INF/persistence.xml", "classes/META-INF/persistence.xml");
 		return archive;
 	}

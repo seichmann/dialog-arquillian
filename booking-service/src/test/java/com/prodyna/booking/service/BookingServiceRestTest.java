@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.resteasy.client.ProxyFactory;
@@ -18,7 +19,6 @@ import com.prodyna.booking.AircraftService;
 import com.prodyna.booking.BookingService;
 import com.prodyna.booking.FlightService;
 import com.prodyna.booking.SeatService;
-import com.prodyna.booking.event.BookingEventObserver;
 
 @RunWith(Arquillian.class)
 public class BookingServiceRestTest {
@@ -31,14 +31,11 @@ public class BookingServiceRestTest {
 	private FlightService fs;
 	private BookingService bs;
 
-	private	BookingEventObserver beo;
-
 	@Deployment
 	public static Archive<?> createDeployment() {
 		final WebArchive archive = ShrinkWrap.create(WebArchive.class, "aircraft.war");
 		archive.addPackages(true, "com.prodyna.booking");
 		archive.addAsWebInfResource("META-INF/beans.xml", "beans.xml");
-		archive.addAsWebInfResource("web.xml");
 		archive.addAsWebInfResource("META-INF/persistence.xml", "classes/META-INF/persistence.xml");
 		return archive;
 	}
@@ -46,12 +43,10 @@ public class BookingServiceRestTest {
 	@Before
 	public void before() {
 		 // TODO @ArquillianResource
-		as = ProxyFactory.create(AircraftService.class, "http://localhost:8080/booking-web/rest");
-		ss = ProxyFactory.create(SeatService.class, "http://localhost:8080/booking-web/rest");
-		fs = ProxyFactory.create(FlightService.class, "http://localhost:8080/booking-web/rest");
-		bs = ProxyFactory.create(BookingService.class, "http://localhost:8080/booking-web/rest");
-		
-		beo = ProxyFactory.create(BookingEventObserver.class, "http://localhost:8080/booking-web/rest");
+		as = ProxyFactory.create(AircraftService.class, "http://localhost:8080/aircraft/rest");
+		ss = ProxyFactory.create(SeatService.class, "http://localhost:8080/aircraft/rest");
+		fs = ProxyFactory.create(FlightService.class, "http://localhost:8080/aircraft/rest");
+		bs = ProxyFactory.create(BookingService.class, "http://localhost:8080/aircraft/rest");
 	}
 	
 	@Test
@@ -77,36 +72,35 @@ public class BookingServiceRestTest {
 		assertEquals(2, ss.list(DAIRX).size());
 	}
 
+//	@RunAsClient
 	@Test
 	@InSequence(3)
 	public void createFlight() {
-		fs.create(DABVX, "LH400/08OCT12");
-		fs.create(DABVX, "LH400/09OCT12");
-		fs.create(DAIRX, "LH001/08OCT12");
-		fs.create(DAIRX, "LH001/09OCT12");
+		fs.create(DABVX, "LH400-08OCT12");
+		fs.create(DABVX, "LH400-09OCT12");
+		fs.create(DAIRX, "LH001-08OCT12");
+		fs.create(DAIRX, "LH001-09OCT12");
 		assertEquals(4, fs.list().size());
 	}
 
 	@Test
 	@InSequence(4)
 	public void bookMarkus() {
-		String id = bs.book("LH400/08OCT12", "1A", "Markus Konrad");
+		String id = bs.book("LH400-08OCT12", "1A", "Markus Konrad");
 		assertNotNull(id);
 		assertEquals(1, bs.list().size() );
 		assertEquals(DABVX, bs.aircraft( id ) );
-		assertEquals("LH400/08OCT12", bs.flightNumber( id) );
-		assertEquals(1, beo.getCount() );
+		assertEquals("LH400-08OCT12", bs.flightNumber( id) );
 	}
 
 	@Test
 	@InSequence(5)
 	public void bookDarko() {
-		String id = bs.book("LH001/09OCT12", "1B", "Darko Krizic");
+		String id = bs.book("LH001-09OCT12", "1B", "Darko Krizic");
 		assertNotNull(id);
 		assertEquals(2, bs.list().size() );
 		assertEquals(DAIRX, bs.aircraft( id ) );
-		assertEquals("LH001/09OCT12", bs.flightNumber( id) );
-		assertEquals(2, beo.getCount() );
+		assertEquals("LH001-09OCT12", bs.flightNumber( id) );
 	}
 
 	@Test
@@ -115,7 +109,6 @@ public class BookingServiceRestTest {
 		String id = bs.list().get(0);
 		bs.cancel( id );
 		assertEquals(1, bs.list().size() );
-		assertEquals(2, beo.getCount() );
 	}
 
 }
