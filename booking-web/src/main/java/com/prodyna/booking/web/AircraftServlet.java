@@ -10,27 +10,55 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.prodyna.booking.AircraftService;
 
-@WebServlet(urlPatterns="/aircraft")
+@WebServlet(urlPatterns = "/*")
 public class AircraftServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	private Logger log = LoggerFactory.getLogger(getClass());
+
 	@EJB
 	private AircraftService as;
-	
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		String action = req.getParameter("action");
+		String reg = req.getParameter("registration");
+		if (action.equals("delete")) {
+			log.info("Deleting Registration " + reg);
+			as.delete(reg);
+		} else if (action.equals("add")) {
+			log.info("Creating Registration " + reg);
+			as.create(reg);
+		} else {
+			// egal...
+		}
+		doGet(req, resp);
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		resp.setContentType("text/html");
 		PrintWriter pw = resp.getWriter();
+		pw.print("<h1>Add aircraft</h1>");
+		pw.print("<form method=\"POST\"><input type=\"text\" name=\"registration\"/><input type=\"hidden\" name=\"action\" value=\"add\"/><input type=\"submit\" value=\"Add\"/></form>");
 		pw.print("<h1>Aircrafts</h1><ul>");
-		for( String a : as.list() ) {
-			pw.print("<li>" + a + "</li>");
+		for (String a : as.list()) {
+			pw.print("<li>"
+					+ a
+					+ "<form method=\"POST\"><input type=\"hidden\" name=\"registration\" value=\""
+					+ a
+					+ "\"/><input type=\"hidden\" name=\"action\" value=\"delete\"/><input type=\"submit\" value=\"Remove\"/></form></li>");
 		}
 		pw.print("</ul>");
 		pw.close();
 	}
 
-	
 }
