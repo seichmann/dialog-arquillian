@@ -1,3 +1,4 @@
+package com.prodyna.booking.test;
 //package com.prodyna.booking.service;
 //
 //import org.jboss.arquillian.container.test.api.Deployment;

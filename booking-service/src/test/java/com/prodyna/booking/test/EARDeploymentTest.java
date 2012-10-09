@@ -1,4 +1,4 @@
-package com.prodyna.booking.service;
+package com.prodyna.booking.test;
 
 import static org.junit.Assert.assertEquals;
 

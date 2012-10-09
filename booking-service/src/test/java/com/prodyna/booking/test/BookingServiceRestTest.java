@@ -1,4 +1,4 @@
-package com.prodyna.booking.service;
+package com.prodyna.booking.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -10,6 +10,7 @@ import org.jboss.arquillian.junit.InSequence;
 import org.jboss.resteasy.client.ProxyFactory;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,8 +35,14 @@ public class BookingServiceRestTest {
 	@Deployment
 	public static Archive<?> createDeployment() {
 		final WebArchive archive = ShrinkWrap.create(WebArchive.class, "aircraft.war");
-		archive.addPackages(true, "com.prodyna.booking");
-		archive.addAsWebInfResource("META-INF/beans.xml", "beans.xml");
+		archive.addPackages(false, "com.prodyna.booking");
+		archive.addPackages(true, "com.prodyna.booking.entity");
+		archive.addPackages(true, "com.prodyna.booking.monitoring");
+		archive.addPackages(true, "com.prodyna.booking.producer");
+		archive.addPackages(true, "com.prodyna.booking.service");
+		archive.addPackages(true, "com.prodyna.booking.ticket");
+		archive.addPackages(true, "com.prodyna.booking.rest");
+		archive.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 		archive.addAsWebInfResource("META-INF/persistence.xml", "classes/META-INF/persistence.xml");
 		return archive;
 	}

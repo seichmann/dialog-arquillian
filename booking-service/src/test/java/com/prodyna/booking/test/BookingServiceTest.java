@@ -1,4 +1,4 @@
-package com.prodyna.booking.service;
+package com.prodyna.booking.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -19,7 +19,7 @@ import com.prodyna.booking.BookingService;
 import com.prodyna.booking.FlightService;
 import com.prodyna.booking.SeatService;
 import com.prodyna.booking.event.BookingEventObserver;
-import com.prodyna.booking.service.util.DatabaseCleaner;
+import com.prodyna.booking.test.util.DatabaseCleaner;
 
 @RunWith(Arquillian.class)
 public class BookingServiceTest {
@@ -57,6 +57,7 @@ public class BookingServiceTest {
 		jar.addPackages(true, "com.prodyna.booking.producer");
 		jar.addPackages(true, "com.prodyna.booking.ticket");
 		jar.addPackages(true, "com.prodyna.booking.event");
+		jar.addPackages(true, "com.prodyna.booking.test.util");
 		return jar;
 	}
 
