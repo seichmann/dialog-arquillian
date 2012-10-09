@@ -37,8 +37,6 @@ public class AircraftServiceTest {
 		jar.addClass(AircraftServiceBean.class);
 		jar.addClass(Monitored.class);
 		jar.addClass(EntityManagerProducer.class);
-		jar.addClass(BookingEventDecorator.class);
-		jar.addClass(BookingEventObserver.class);
 		return jar;
 	}
 
