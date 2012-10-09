@@ -10,17 +10,18 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Local
-@Path("/bs")
+@Path("bs")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface BookingService {
     
 	@POST
-	@Path("") // TODO
-	String book( String fid, String sid, String pax );
+	@Path("booking")
+	String book(@QueryParam("fid") String fid, @QueryParam("sid") String sid, @QueryParam("pax") String pax );
     
 	@DELETE
 	@Path("booking/{tid}")
