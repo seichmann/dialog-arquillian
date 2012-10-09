@@ -61,7 +61,7 @@ public class AircraftServiceRestTest {
 		
 		ss.create("D-AIRX",  "1A");
 		ss.create("D-AIRX",  "1B");
-		assertEquals(4, ss.list("D-AIRX").size() );
+		assertEquals(2, ss.list("D-AIRX").size() );
 	}
 
 }
