@@ -16,8 +16,6 @@ import org.junit.runner.RunWith;
 
 import com.prodyna.booking.AircraftService;
 import com.prodyna.booking.entity.Aircraft;
-import com.prodyna.booking.event.BookingEventDecorator;
-import com.prodyna.booking.event.BookingEventObserver;
 import com.prodyna.booking.monitoring.Monitored;
 import com.prodyna.booking.producer.EntityManagerProducer;
 import com.prodyna.booking.service.AircraftServiceBean;

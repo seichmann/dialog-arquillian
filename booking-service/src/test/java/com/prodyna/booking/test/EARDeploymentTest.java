@@ -1,7 +1,5 @@
 package com.prodyna.booking.test;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.File;
 
 import javax.inject.Inject;
