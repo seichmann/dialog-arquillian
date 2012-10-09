@@ -14,15 +14,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.prodyna.booking.AircraftService;
+import com.prodyna.booking.entity.Aircraft;
+import com.prodyna.booking.monitoring.Monitored;
 import com.prodyna.booking.producer.EntityManagerProducer;
-import com.prodyna.booking.service.util.DatabaseCleaner;
 
 @RunWith(Arquillian.class)
 public class AircraftServiceTest {
 
-	@Inject
-	private	DatabaseCleaner dc;
-	
 	@Inject
 	private AircraftService as;
 
@@ -31,19 +29,17 @@ public class AircraftServiceTest {
 		JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "aircraft.jar");
 		jar.addAsResource("META-INF/beans.xml");
 		jar.addAsResource("META-INF/persistence.xml");
+		jar.addClass(Aircraft.class);
 		jar.addClass(AircraftService.class);
 		jar.addClass(AircraftServiceBean.class);
+		jar.addClass(Monitored.class);
 		jar.addClass(EntityManagerProducer.class);
-		jar.addClass(DatabaseCleaner.class);
-		jar.addPackage("com.prodyna.booking.monitoring");
-		jar.addPackage("com.prodyna.booking.entity");
 		return jar;
 	}
 
 	@Test
 	@InSequence(1)
 	public void createAndCount() {
-		dc.clean();
 		assertEquals(0,  as.list().size() );
 		as.create("D-ABVX");
 		as.create("D-AIRX");

@@ -2,6 +2,7 @@ package com.prodyna.booking.service;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import com.prodyna.booking.monitoring.Monitored;
 
 @Stateless
 @Monitored
+@LocalBean
 public class AircraftServiceBean implements AircraftService {
 
 	@Inject
