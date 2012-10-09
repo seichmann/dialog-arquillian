@@ -1,4 +1,4 @@
-package com.prodyna.booking.service;
+package com.prodyna.booking.service.util;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;

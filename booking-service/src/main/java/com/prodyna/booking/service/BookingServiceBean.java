@@ -3,7 +3,6 @@ package com.prodyna.booking.service;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 

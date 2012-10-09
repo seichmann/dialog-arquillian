@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 
 import com.prodyna.booking.AircraftService;
 import com.prodyna.booking.producer.EntityManagerProducer;
+import com.prodyna.booking.service.util.DatabaseCleaner;
 
 @RunWith(Arquillian.class)
 public class AircraftServiceTest {

@@ -19,6 +19,7 @@ import com.prodyna.booking.BookingService;
 import com.prodyna.booking.FlightService;
 import com.prodyna.booking.SeatService;
 import com.prodyna.booking.event.BookingEventObserver;
+import com.prodyna.booking.service.util.DatabaseCleaner;
 
 @RunWith(Arquillian.class)
 public class BookingServiceTest {
