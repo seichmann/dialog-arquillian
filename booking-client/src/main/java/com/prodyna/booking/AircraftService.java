@@ -13,20 +13,21 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Local
-@Path("/aircraft")
+@Path("as")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface AircraftService {
     
 	@POST
-	@Path("{aid}")
+	@Path("aircraft/{aid}")
 	void create(@PathParam("aid") String aid );
     
 	@DELETE
-	@Path("{aid}")
+	@Path("aircraft/{aid}")
 	void delete(@PathParam("aid") String aid );
     
 	@GET
+	@Path("aircraft")
 	List<String> list();
 }
 
