@@ -7,6 +7,7 @@ import java.io.File;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -30,6 +31,8 @@ public class EARDeploymentTest {
 	}
 
 	@Test
+	@RunAsClient
+	// TODO: Rest-enablen
 	public void createAircraft() {
 		assertEquals(0, as.list().size());
 		as.create("D-EEFZ");

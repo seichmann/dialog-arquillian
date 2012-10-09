@@ -29,3 +29,4 @@ public interface AircraftService {
 	@GET
 	List<String> list();
 }
+
