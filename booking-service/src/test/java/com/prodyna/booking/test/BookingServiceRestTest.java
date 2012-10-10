@@ -3,9 +3,13 @@ package com.prodyna.booking.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.net.URL;
+
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.resteasy.client.ProxyFactory;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -26,11 +30,6 @@ public class BookingServiceRestTest {
 	private static final String DAIRX = "D-AIRX";
 	private static final String DABVX = "D-ABVX";
 
-	private AircraftService as;
-	private SeatService ss;
-	private FlightService fs;
-	private BookingService bs;
-
 	@Deployment
 	public static Archive<?> createDeployment() {
 		final WebArchive archive = ShrinkWrap.create(WebArchive.class, "aircraft.war");
@@ -46,15 +45,24 @@ public class BookingServiceRestTest {
 		return archive;
 	}
 
+	private AircraftService as;
+	private SeatService ss;
+	private FlightService fs;
+	private BookingService bs;
+
+	@ArquillianResource
+	private URL deploymentUrl;
+	
 	@Before
 	public void before() {
-		 // TODO @ArquillianResource
-		as = ProxyFactory.create(AircraftService.class, "http://localhost:8080/aircraft/rest");
-		ss = ProxyFactory.create(SeatService.class, "http://localhost:8080/aircraft/rest");
-		fs = ProxyFactory.create(FlightService.class, "http://localhost:8080/aircraft/rest");
-		bs = ProxyFactory.create(BookingService.class, "http://localhost:8080/aircraft/rest");
+		final String restEndpoint = deploymentUrl + "rest";
+		as = ProxyFactory.create(AircraftService.class, restEndpoint);
+		ss = ProxyFactory.create(SeatService.class, restEndpoint);
+		fs = ProxyFactory.create(FlightService.class, restEndpoint);
+		bs = ProxyFactory.create(BookingService.class, restEndpoint);
 	}
 	
+	@RunAsClient
 	@Test
 	@InSequence(1)
 	public void createAircraft() {
@@ -64,6 +72,7 @@ public class BookingServiceRestTest {
 		assertEquals(2, as.list().size());
 	}
 
+	@RunAsClient
 	@Test
 	@InSequence(2)
 	public void createSeats() {
@@ -78,7 +87,7 @@ public class BookingServiceRestTest {
 		assertEquals(2, ss.list(DAIRX).size());
 	}
 
-//	@RunAsClient
+	@RunAsClient
 	@Test
 	@InSequence(3)
 	public void createFlight() {
@@ -89,6 +98,7 @@ public class BookingServiceRestTest {
 		assertEquals(4, fs.list().size());
 	}
 
+	@RunAsClient
 	@Test
 	@InSequence(4)
 	public void bookMarkus() {
@@ -99,6 +109,7 @@ public class BookingServiceRestTest {
 		assertEquals("LH400-08OCT12", bs.flightNumber( id) );
 	}
 
+	@RunAsClient
 	@Test
 	@InSequence(5)
 	public void bookDarko() {
@@ -109,6 +120,7 @@ public class BookingServiceRestTest {
 		assertEquals("LH001-09OCT12", bs.flightNumber( id) );
 	}
 
+	@RunAsClient
 	@Test
 	@InSequence(5)
 	public void cancelOne() {

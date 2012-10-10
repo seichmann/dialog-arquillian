@@ -17,6 +17,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<javaee6.web.spec.version>2.0.0.Final</javaee6.web.spec.version>
+		<resteasy.version>2.3.4.Final</resteasy.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -49,8 +50,14 @@
 			<dependency>
 				<groupId>org.jboss.resteasy</groupId>
 				<artifactId>resteasy-jaxrs</artifactId>
-				<version>2.3.4.Final</version>
+				<version>${resteasy.version}</version>
 				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-jackson-provider</artifactId>
+				<version>${resteasy.version}</version>
+				<scope>test</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
