@@ -1,5 +1,10 @@
 package com.prodyna.booking.web.test;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -14,25 +19,38 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ByIdOrName;
 
 @RunWith(Arquillian.class)
 public class WebFrontendTest {
 
-	@ArquillianResource URL url;
-	
-	@Drone HtmlUnitDriver driver;
+	@ArquillianResource
+	private URL url;
+
+	@Drone
+	private WebDriver driver;
 
 	@Deployment
 	public static Archive<?> createDeployment() {
 		final WebArchive archive = ShrinkWrap.create(WebArchive.class,
 				"booking.war");
-		archive.addPackages(true, "com.prodyna.booking");
-		archive.addPackages(true, "org.openqa");
-//		archive.addAsWebInfResource("META-INF/beans.xml", "beans.xml");
-//		archive.addAsWebInfResource("web.xml");
-//		archive.addAsWebInfResource("META-INF/persistence.xml",
-//				"classes/META-INF/persistence.xml");
+		archive.addPackages(false, "com.prodyna.booking");
+		archive.addPackages(true, "com.prodyna.booking.entity");
+		archive.addPackages(true, "com.prodyna.booking.event");
+		archive.addPackages(true, "com.prodyna.booking.monitoring");
+		archive.addPackages(true, "com.prodyna.booking.producer");
+		archive.addPackages(true, "com.prodyna.booking.service");
+		archive.addPackages(true, "com.prodyna.booking.ticket");
+		archive.addPackages(false, "com.prodyna.booking.web");
+		archive.addAsWebInfResource(new File(
+				"../booking-service/src/main/resources/META-INF/beans.xml"),
+				"beans.xml");
+		archive.addAsWebInfResource(
+				new File(
+						"../booking-service/src/main/resources/META-INF/persistence.xml"),
+				"classes/META-INF/persistence.xml");
 		return archive;
 	}
 
@@ -40,12 +58,22 @@ public class WebFrontendTest {
 	@RunAsClient
 	@InSequence(1)
 	public void listAircraft() {
-		Assert.assertNotNull( url );
-		System.out.println("URL " + url );
-		Assert.assertNotNull( driver );
-		
-		driver.get( url.toString() + "/aircraft");
-		System.out.println( driver.getCurrentUrl() );
+		driver.get(url.toString() + "aircraft");
+		System.out.println(driver.getCurrentUrl());
+		String c = driver.getPageSource();
+		System.out.println(c);
+		assertTrue(c.contains("Aircrafts"));
+		assertFalse(c.contains("D-EEFZ"));
+
+		WebElement af = driver.findElement(new ByIdOrName("addform"));
+		WebElement reg = af.findElement(new ByIdOrName("registration"));
+		reg.sendKeys("D-EEFZ");
+		af.submit();
+
+		c = driver.getPageSource();
+		System.out.println(c);
+		assertTrue(c.contains("Aircrafts"));
+		assertTrue(c.contains("D-EEFZ"));
 	}
 
 }

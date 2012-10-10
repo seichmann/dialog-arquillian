@@ -48,7 +48,7 @@ public class AircraftServlet extends HttpServlet {
 		resp.setContentType("text/html");
 		PrintWriter pw = resp.getWriter();
 		pw.print("<h1>Add aircraft</h1>");
-		pw.print("<form method=\"POST\"><input type=\"text\" name=\"registration\"/><input type=\"hidden\" name=\"action\" value=\"add\"/><input type=\"submit\" value=\"Add\"/></form>");
+		pw.print("<form id=\"addform\" method=\"POST\"><input type=\"text\" name=\"registration\"/><input type=\"hidden\" name=\"action\" value=\"add\"/><input type=\"submit\" value=\"Add\"/></form>");
 		pw.print("<h1>Aircrafts</h1><ul>");
 		for (String a : as.list()) {
 			pw.print("<li>"
