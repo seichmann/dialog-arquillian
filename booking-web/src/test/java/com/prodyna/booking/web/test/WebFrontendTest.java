@@ -1,7 +1,6 @@
 package com.prodyna.booking.web.test;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -16,7 +15,6 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
@@ -32,7 +30,7 @@ public class WebFrontendTest {
 	@Drone
 	private WebDriver driver;
 
-	@Deployment
+	@Deployment(testable=false)
 	public static Archive<?> createDeployment() {
 		final WebArchive archive = ShrinkWrap.create(WebArchive.class,
 				"booking.war");
