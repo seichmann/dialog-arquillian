@@ -2,9 +2,12 @@ package com.prodyna.booking.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.net.URL;
+
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.junit.InSequence;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.resteasy.client.ProxyFactory;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -18,8 +21,6 @@ import com.prodyna.booking.AircraftService;
 @RunWith(Arquillian.class)
 public class AircraftServiceRestTest {
 
-	private AircraftService as;
-
 	@Deployment
 	public static Archive<?> createDeployment() {
 		final WebArchive archive = ShrinkWrap.create(WebArchive.class, "aircraft.war");
@@ -28,15 +29,20 @@ public class AircraftServiceRestTest {
 		archive.addAsWebInfResource("META-INF/persistence.xml", "classes/META-INF/persistence.xml");
 		return archive;
 	}
+	
+	private AircraftService as;
+	
+	@ArquillianResource
+	private URL deploymentUrl;
 
 	@Before
 	public void before() {
-		// TODO @ArquillianResource
-		as = ProxyFactory.create(AircraftService.class, "http://localhost:8080/aircraft/rest");
+		final String restEndpoint = deploymentUrl + "rest";
+		as = ProxyFactory.create(AircraftService.class, restEndpoint);
 	}
 	
+	@RunAsClient
 	@Test
-	@InSequence(1)
 	public void createAndCount() {
 		assertEquals(0,  as.list().size() );
 		as.create("D-ABVX");
