@@ -51,12 +51,12 @@ public class BookingServiceTest {
 		jar.addAsResource("META-INF/beans.xml");
 		jar.addAsResource("META-INF/persistence.xml");
 		jar.addPackage("com.prodyna.booking");
+		jar.addPackages(true, "com.prodyna.booking.event");
 		jar.addPackages(true, "com.prodyna.booking.entity");
 		jar.addPackages(true, "com.prodyna.booking.monitoring");
 		jar.addPackages(true, "com.prodyna.booking.service");
 		jar.addPackages(true, "com.prodyna.booking.producer");
 		jar.addPackages(true, "com.prodyna.booking.ticket");
-		jar.addPackages(true, "com.prodyna.booking.event");
 		jar.addPackages(true, "com.prodyna.booking.test.util");
 		return jar;
 	}

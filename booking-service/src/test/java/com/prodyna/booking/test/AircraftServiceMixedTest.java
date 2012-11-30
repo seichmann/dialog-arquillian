@@ -33,6 +33,7 @@ public class AircraftServiceMixedTest {
 	@Inject
 	private DatabaseCleaner dbc;
 	
+	@Inject
 	private AircraftService as;
 	
 	@InSequence(1)
