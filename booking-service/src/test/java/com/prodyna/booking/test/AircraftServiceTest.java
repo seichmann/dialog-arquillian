@@ -47,7 +47,6 @@ public class AircraftServiceTest {
 		assertEquals(0,  as.list().size() );
 		as.create("D-ABVX");
 		as.create("D-AIRX");
-		as.create("D-JENS");
 		assertEquals(2,  as.list().size() );
 	}
 }
