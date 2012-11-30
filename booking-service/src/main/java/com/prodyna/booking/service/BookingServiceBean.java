@@ -2,7 +2,7 @@ package com.prodyna.booking.service;
 
 import java.util.List;
 
-import javax.annotation.ManagedBean;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -17,9 +17,9 @@ import com.prodyna.booking.entity.Seat;
 import com.prodyna.booking.monitoring.Monitored;
 import com.prodyna.booking.ticket.IDGenerator;
 
-@ManagedBean
 @Stateless
 @Monitored
+@LocalBean
 public class BookingServiceBean implements BookingService {
 
 	@Inject
