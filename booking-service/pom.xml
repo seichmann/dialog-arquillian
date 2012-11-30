@@ -123,7 +123,16 @@
             <artifactId>org.jacoco.core</artifactId>
             <version>0.6.0.201210061924</version>
             <scope>test</scope>
-        </dependency>	</dependencies>
+        </dependency>
+<!--         <dependency> -->
+<!--         	<groupId>org.jboss.as</groupId> -->
+<!--         	<artifactId> -->
+<!--         		jboss-as-arquillian-container-embedded -->
+<!--         	</artifactId> -->
+<!--         	<version>7.0.0.Beta3</version> -->
+<!--         	<scope>test</scope> -->
+<!--         </dependency> -->
+	</dependencies>
 	<profiles>
 		<profile>
 			<id>test</id>
