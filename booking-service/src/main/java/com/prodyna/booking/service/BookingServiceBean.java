@@ -2,6 +2,7 @@ package com.prodyna.booking.service;
 
 import java.util.List;
 
+import javax.annotation.ManagedBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -16,6 +17,7 @@ import com.prodyna.booking.entity.Seat;
 import com.prodyna.booking.monitoring.Monitored;
 import com.prodyna.booking.ticket.IDGenerator;
 
+@ManagedBean
 @Stateless
 @Monitored
 public class BookingServiceBean implements BookingService {
@@ -27,7 +29,7 @@ public class BookingServiceBean implements BookingService {
 	private EntityManager em;
 
 	@Inject
-	IDGenerator ig;
+	private IDGenerator ig;
 
 	@Override
 	public String book(String fid, String sid, String pax) {

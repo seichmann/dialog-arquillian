@@ -18,6 +18,7 @@ import com.prodyna.booking.AircraftService;
 import com.prodyna.booking.entity.Aircraft;
 import com.prodyna.booking.monitoring.Monitored;
 import com.prodyna.booking.producer.EntityManagerProducer;
+import com.prodyna.booking.producer.LoggerProducer;
 import com.prodyna.booking.service.AircraftServiceBean;
 
 @RunWith(Arquillian.class)
@@ -35,6 +36,7 @@ public class AircraftServiceTest {
 		jar.addClass(AircraftService.class);
 		jar.addClass(AircraftServiceBean.class);
 		jar.addClass(Monitored.class);
+		jar.addClass(LoggerProducer.class);
 		jar.addClass(EntityManagerProducer.class);
 		return jar;
 	}
@@ -45,6 +47,7 @@ public class AircraftServiceTest {
 		assertEquals(0,  as.list().size() );
 		as.create("D-ABVX");
 		as.create("D-AIRX");
+		as.create("D-JENS");
 		assertEquals(2,  as.list().size() );
 	}
 }

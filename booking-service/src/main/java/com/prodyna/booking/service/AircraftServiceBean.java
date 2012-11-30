@@ -7,6 +7,8 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.slf4j.Logger;
+
 import com.prodyna.booking.AircraftService;
 import com.prodyna.booking.entity.Aircraft;
 import com.prodyna.booking.monitoring.Monitored;
@@ -16,6 +18,8 @@ import com.prodyna.booking.monitoring.Monitored;
 @LocalBean
 public class AircraftServiceBean implements AircraftService {
 
+	@Inject
+	private Logger log;
 	@Inject
 	private EntityManager em;
 
@@ -27,6 +31,7 @@ public class AircraftServiceBean implements AircraftService {
 	@Override
 	public void delete(String aid) {
 		Aircraft a = em.find(Aircraft.class, aid);
+		log.info("Removing " + aid );
 		em.remove(a);
 	}
 

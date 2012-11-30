@@ -39,3 +39,4 @@ public interface BookingService {
 	@Path("booking/{tid}/aircraft")
 	String aircraft(@PathParam("tid") String tid);
 }
+

@@ -6,9 +6,13 @@
 		<class>com.prodyna.booking.monitoring.MonitoringInterceptor</class>
 	</interceptors>
 
-	<decorators>
-		<class>com.prodyna.booking.event.BookingEventDecorator</class>
-	</decorators>
+<!-- 	<decorators> -->
+<!-- 		<class>com.prodyna.booking.event.BookingEventDecorator</class> -->
+<!-- 	</decorators> -->
+
+	<alternatives>
+		<class>com.prodyna.booking.ticket.UUIDGenerator</class>
+	</alternatives>
 
 </beans>
 
