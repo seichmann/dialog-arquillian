@@ -1,17 +1,16 @@
 package com.prodyna.booking.ticket;
 
-import java.util.UUID;
+import com.prodyna.booking.model.Booking;
 
 import javax.enterprise.inject.Alternative;
-
-import com.prodyna.booking.entity.Booking;
+import java.util.UUID;
 
 @Alternative
 public class UUIDGenerator implements IDGenerator {
 
-	@Override
-	public String generate(Booking b) {
-		return UUID.randomUUID().toString();
-	}
+    @Override
+    public String generate(Booking b) {
+        return UUID.randomUUID().toString();
+    }
 
 }

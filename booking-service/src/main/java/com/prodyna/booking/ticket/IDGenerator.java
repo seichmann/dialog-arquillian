@@ -1,10 +1,10 @@
 package com.prodyna.booking.ticket;
 
-import javax.enterprise.inject.Alternative;
+import com.prodyna.booking.model.Booking;
 
-import com.prodyna.booking.entity.Booking;
+import javax.enterprise.inject.Alternative;
 
 @Alternative
 public interface IDGenerator {
-	String generate( Booking b );
+    String generate(Booking b);
 }

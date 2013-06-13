@@ -1,44 +1,42 @@
 package com.prodyna.booking.service;
 
-import java.util.List;
+import com.prodyna.booking.AircraftService;
+import com.prodyna.booking.model.Aircraft;
+import com.prodyna.booking.monitoring.Monitored;
+import org.slf4j.Logger;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-
-import org.slf4j.Logger;
-
-import com.prodyna.booking.AircraftService;
-import com.prodyna.booking.entity.Aircraft;
-import com.prodyna.booking.monitoring.Monitored;
+import java.util.List;
 
 @Stateless
 @Monitored
 @LocalBean
 public class AircraftServiceBean implements AircraftService {
 
-	@Inject
-	private Logger log;
-	@Inject
-	private EntityManager em;
+    @Inject
+    private Logger log;
+    @Inject
+    private EntityManager em;
 
-	@Override
-	public void create(String aid) {
-		em.persist(new Aircraft(aid));
-	}
+    @Override
+    public void create(String aid) {
+        em.persist(new Aircraft(aid));
+    }
 
-	@Override
-	public void delete(String aid) {
-		Aircraft a = em.find(Aircraft.class, aid);
-		log.info("Removing " + aid );
-		em.remove(a);
-	}
+    @Override
+    public void delete(String aid) {
+        Aircraft a = em.find(Aircraft.class, aid);
+        log.info("Removing " + aid);
+        em.remove(a);
+    }
 
-	@Override
-	public List<String> list() {
-		return em.createQuery("select a.registration from Aircraft a",
-				String.class).getResultList();
-	}
+    @Override
+    public List<Aircraft> list() {
+        return em.createQuery("select a from Aircraft a",
+                Aircraft.class).getResultList();
+    }
 
 }
