@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="ejb-jar" name="booking-service:ejb">
+    <output-path>$PROJECT_DIR$/booking-service/target</output-path>
+    <root id="archive" name="booking-service-0.0.1-SNAPSHOT.jar">
+      <element id="artifact" artifact-name="booking-service:ejb exploded" />
+    </root>
+  </artifact>
+</component>

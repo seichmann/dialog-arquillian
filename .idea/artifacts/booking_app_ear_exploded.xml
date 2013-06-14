@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="booking-app:ear exploded">
+    <output-path>$PROJECT_DIR$/booking-app/target/booking-app-0.0.1-SNAPSHOT</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="booking-app/javaeeApplication/JavaEE" />
+      <element id="directory" name="booking-service-0.0.1-SNAPSHOT.jar">
+        <element id="artifact" artifact-name="booking-service:ejb exploded" />
+      </element>
+      <element id="archive" name="booking-client-0.0.1-SNAPSHOT.jar">
+        <element id="module-output" name="booking-client" />
+      </element>
+      <element id="directory" name="booking-web-0.0.1-SNAPSHOT.war">
+        <element id="artifact" artifact-name="booking-web:war exploded" />
+      </element>
+      <element id="archive" name="booking-common-0.0.1-SNAPSHOT.jar">
+        <element id="module-output" name="booking-common" />
+      </element>
+    </root>
+  </artifact>
+</component>

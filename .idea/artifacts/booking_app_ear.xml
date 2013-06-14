@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="ear" name="booking-app:ear">
+    <output-path>$PROJECT_DIR$/booking-app/target</output-path>
+    <root id="archive" name="booking-app-0.0.1-SNAPSHOT.ear">
+      <element id="artifact" artifact-name="booking-app:ear exploded" />
+    </root>
+  </artifact>
+</component>
