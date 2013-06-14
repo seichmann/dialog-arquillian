@@ -9,12 +9,14 @@ import com.prodyna.booking.monitoring.Monitored;
 import com.prodyna.booking.ticket.IDGenerator;
 import org.slf4j.Logger;
 
+import javax.ejb.Local;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+@Local(BookingService.class)
 @Stateless
 @Monitored
 @LocalBean
@@ -69,6 +71,7 @@ public class BookingServiceBean implements BookingService {
     public List<Booking> list() {
         List<Booking> resultList = em.createQuery("select b from Booking b", Booking.class)
                 .getResultList();
+        log.debug("Revision 1");
         return resultList;
     }
 
