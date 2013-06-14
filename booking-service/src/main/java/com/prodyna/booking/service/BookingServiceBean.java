@@ -71,6 +71,7 @@ public class BookingServiceBean implements BookingService {
                 .getResultList();
         log.debug("Master Revision 1");
         log.debug("Revision 1");
+        log.debug("Revision 2");
         return resultList;
     }
 
