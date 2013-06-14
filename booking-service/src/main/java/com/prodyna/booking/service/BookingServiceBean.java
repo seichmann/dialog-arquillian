@@ -69,6 +69,7 @@ public class BookingServiceBean implements BookingService {
     public List<Booking> list() {
         List<Booking> resultList = em.createQuery("select b from Booking b", Booking.class)
                 .getResultList();
+        log.debug("Master Revision 1");
         return resultList;
     }
 
